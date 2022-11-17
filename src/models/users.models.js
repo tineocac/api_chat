@@ -36,7 +36,7 @@ const Users = db.define(
       field: "profile_image",
     },
     phone: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(16),
       unique: true,
       allowNull: false,
     },
