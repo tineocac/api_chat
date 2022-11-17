@@ -11,7 +11,7 @@ const Participants = db.define("participants", {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: "userd_id",
+    field: "user_id",
   },
   conversationId: {
     type: DataTypes.INTEGER,
