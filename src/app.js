@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("./utils/database");
 const errorHandle = require("./middlewares/error.middleware");
 const initModels = require("./models/initModels");
+const { userRouter } = require("./routes");
 
 const app = express();
 
@@ -23,6 +24,8 @@ db.sync({ force: false })
 app.get("/", (req, res) => {
   console.log("Welcome to server");
 });
+
+app.use("/api/v1", userRouter);
 
 app.use(errorHandle);
 
