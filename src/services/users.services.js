@@ -10,10 +10,14 @@ class UsersServices {
     }
   }
 
-  // static async login(id, data) {
-  //   try {
-  //   } catch (error) {}
-  // }
+  static async getUsers() {
+    try {
+      const result = await Users.findAll();
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = UsersServices;

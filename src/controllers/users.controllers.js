@@ -14,4 +14,17 @@ const userRegister = async (req, res, next) => {
   }
 };
 
-module.exports = { userRegister };
+const getAllUsers = async (req, res, next) => {
+  try {
+    const result = await UsersServices.getUsers();
+    res.json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      errorContent: error,
+      message: "Something went wrong",
+    });
+  }
+};
+
+module.exports = { userRegister, getAllUsers };
