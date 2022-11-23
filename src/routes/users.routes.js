@@ -3,6 +3,30 @@ const router = Router();
 const { userRegister, getAllUsers } = require("../controllers");
 const authenticate = require("../middlewares/auth.middlware");
 
+/**
+ * @openapi
+ * /api/v1/users:
+ *   post:
+ *     tags:
+ *       - Users
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: OK
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/Users"
+ */
+
+
 router.post("/users", userRegister);
 router.get("/users", authenticate, getAllUsers);
 
