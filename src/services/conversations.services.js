@@ -21,6 +21,26 @@ class conversationsServices {
     }
   }
 
+  static async getMessages(id) {
+    try {
+      const result = await Conversations.findOne({
+        where: { id },
+        include: [
+          {
+            model: Messages,
+            as: "messages",
+          },
+          {
+            model: Users,
+          },
+        ],
+      });
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async createMessage(conversationId, data) {
     try {
       const result = await Messages.create(data, {

@@ -1,4 +1,4 @@
-const { Users, Conversations, Messages, Participants } = require("./index");
+const { Users, Conversations, Messages, } = require("./index");
 
 const initModels = () => {
   Users.belongsToMany(Conversations, { through: "participants" });
@@ -13,11 +13,11 @@ const initModels = () => {
   });
   Conversations.hasMany(Messages, {
     as: "messages",
-    foreignKey: "converstion_id",
+    foreignKey: "conversation_id",
   });
 
-  Users.hasMany(Conversations, { as: "chat", foreignKey: "created_by" });
   Conversations.belongsTo(Users, { as: "owner", foreignKey: "created_by" });
+  Users.hasMany(Conversations, { as: "chats", foreignKey: "created_by" });
 };
 
 module.exports = initModels;

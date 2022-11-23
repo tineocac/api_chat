@@ -8,7 +8,6 @@ const authenticate = (req, res, next) => {
     console.log(token);
     try {
       const decoded = jwt.verify(token, process.env.SECRET, "HS512");
-      console.log(decoded);
       next();
     } catch (error) {
       next({

@@ -14,6 +14,20 @@ const getAllConversations = async (req, res, next) => {
   }
 };
 
+const getConversationMessages = async (req, res, next) => {
+  try {
+    const { conversationId } = req.params;
+    const result = await conversationsServices.getMessages(conversationId);
+    res.json(result);
+  } catch (error) {
+    next({
+      status: 400,
+      errorContent: error,
+      message: "Bad request",
+    });
+  }
+};
+
 const createMessageInConversation = async (req, res, next) => {
   try {
     const data = req.body;
@@ -46,4 +60,5 @@ module.exports = {
   getAllConversations,
   createMessageInConversation,
   createConversation,
+  getConversationMessages
 };
