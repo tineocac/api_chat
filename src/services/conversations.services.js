@@ -1,7 +1,7 @@
 const { Users, Conversations, Messages } = require("../models");
 
 class conversationsServices {
-  static async getConversations(id) {
+  static async getConversations(id, offset, limit) {
     try {
       const conversation = await Users.findAll({
         where: { id },
@@ -14,6 +14,9 @@ class conversationsServices {
             as: "messages",
           },
         },
+        offset,
+        limit,
+        subQuery: false,
       });
       return conversation;
     } catch (error) {
@@ -21,9 +24,9 @@ class conversationsServices {
     }
   }
 
-  static async getMessages(id) {
+  static async getMessagesParticipants(id, offset, limit) {
     try {
-      const result = await Conversations.findOne({
+      const result = await Conversations.findAndCountAll({
         where: { id },
         include: [
           {
@@ -34,6 +37,9 @@ class conversationsServices {
             model: Users,
           },
         ],
+        offset,
+        limit,
+        subQuery: false,
       });
       return result;
     } catch (error) {
@@ -41,13 +47,27 @@ class conversationsServices {
     }
   }
 
-  static async createMessage(conversationId, data) {
+  static async getMessages(data) {
     try {
-      const result = await Messages.create(data, {
-        where: conversationId,
+      const { conversationId, offset, limit } = data;
+      const result = await Messages.findAndCountAll({
+        where: { conversationId },
+        offset,
+        limit,
       });
       return result;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async createMessage(data) {
+    try {
+      const result = await Messages.create(data);
+      return result;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

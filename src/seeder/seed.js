@@ -1,5 +1,8 @@
 const db = require("../utils/database");
 const { Users, Participants, Messages, Conversations } = require("../models");
+const initModels = require("../models/initModels");
+
+initModels();
 
 const users = [
   {
@@ -92,15 +95,19 @@ const messages = [
   },
 ];
 
-db.sync().then(() => {
-  users.forEach((user) => Users.create(user));
+db.sync({ force: true }).then(() => {
+  users.forEach(async (user) => await Users.create(user));
   setTimeout(() => {
-    conversations.forEach((conversation) => Conversations.create(conversation));
+    conversations.forEach(
+      async (conversation) => await Conversations.create(conversation)
+    );
   }, 100);
   setTimeout(() => {
-    participants.forEach((participant) => Participants.create(participant));
+    participants.forEach(
+      async (participant) => await Participants.create(participant)
+    );
   }, 200);
   setTimeout(() => {
-    messages.forEach((message) => Messages.create(message));
+    messages.forEach(async (message) => await Messages.create(message));
   }, 300);
 });

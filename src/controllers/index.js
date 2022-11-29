@@ -2,7 +2,8 @@ const { userRegister, getAllUsers } = require("./users.controllers");
 const { userLogin } = require("./auth.controllers");
 const {
   getAllConversations,
-  getConversationMessages,
+  getMessagesWithParticipants,
+  getAllMessages,
   createMessageInConversation,
   createConversation,
 } = require("./conversations.controllers");
@@ -12,7 +13,8 @@ module.exports = {
   userLogin,
   getAllUsers,
   getAllConversations,
+  getMessagesWithParticipants,
+  getAllMessages,
   createMessageInConversation,
   createConversation,
-  getConversationMessages,
 };

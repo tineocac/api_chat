@@ -5,6 +5,7 @@ const db = require("./utils/database");
 const errorHandle = require("./middlewares/error.middleware");
 const initModels = require("./models/initModels");
 const { userRouter, authRouter, converationsRouter } = require("./routes");
+// const transporter = require("./utils/mailer");
 
 const app = express();
 
@@ -17,9 +18,13 @@ db.authenticate()
   .then(() => console.log("Succesful authentication"))
   .catch((error) => console.log(error));
 
-db.sync({ force: false })
+db.sync({ alter: true })
   .then(() => console.log("Succesful synchronization"))
   .catch((error) => console.log(error));
+
+// transporter
+//   .verify()
+//   .then(() => console.log("Ya puedo enviar correos a diestra y siniestra"));
 
 app.get("/", (req, res) => {
   console.log("Welcome to server");
