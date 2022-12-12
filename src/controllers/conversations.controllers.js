@@ -93,7 +93,7 @@ const createConversation = async (req, res, next) => {
   try {
     const data = req.body;
     const result = await conversationsServices.create(data);
-    res.json({ message: "Succesful conversation created" });
+    res.status(201).json({ message: "Succesful conversation created" });
   } catch (error) {
     next({
       status: 400,

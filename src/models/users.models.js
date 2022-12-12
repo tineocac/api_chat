@@ -11,31 +11,36 @@ const bcrypt = require("bcrypt");
  *       properties:
  *         firstname:
  *           type: string
- *           example: Ian
+ *           example: Carlos
  *         lastname:
  *           type: string
- *           example: Rosas
+ *           example: Tineo
  *         email:
  *           type: string
- *           example: ian@gmail.com
+ *           example: tineoc@gmail.com
  *     register:
  *       type: object
  *       properties:
  *         firstname:
  *           type: string
- *           example: Ian
+ *           example: Carlos
  *         lastname:
  *           type: string
- *           example: Rosas
+ *           example: Tineo
  *         email:
  *           type: string
- *           example: ian@gmail.com
+ *           example: tineoc@gmail.com
  *         phone:
  *           type: string
- *           example: 12345
+ *           example: 584128888888
  *         password:
  *           type: string
- *           example: 1234
+ *           example: 12345678
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */
 
 

@@ -5,14 +5,16 @@ const {
   getAllConversations,
   getMessagesWithParticipants,
   createMessageInConversation,
-  getAllMessages
+  getAllMessages,
+  createConversation,
 } = require("../controllers");
-const { authenticate } = require("../services/auth.services");
 
 /**
  * @openapi
  * /api/v1/conversations/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get all conversations from user
  *     tags: [conversations]
  *     parameters:
@@ -22,13 +24,7 @@ const { authenticate } = require("../services/auth.services");
  *         schema:
  *           type: integer
  *           minimum: 1
- *         description: user Id
- *       - in: path
- *         name: conversationId
- *         required: true
- *         schema:
- *          type: integer
- *          minimum: 1
+ *         description: User id
  *     responses:
  *       200:
  *         description: OK
@@ -52,11 +48,18 @@ router.get(
   aunthenticate,
   getMessagesWithParticipants
 );
-router.get("/conversations/messages/:conversationId", aunthenticate, getAllMessages);
+router.get(
+  "/conversations/messages/:conversationId",
+  aunthenticate,
+  getAllMessages
+);
 
 router.post(
-  "/conversation/:conversationId/message", aunthenticate, 
+  "/conversation/:conversationId/message",
+  aunthenticate,
   createMessageInConversation
 );
+
+router.post("/conversations/participants", createConversation);
 
 module.exports = router;

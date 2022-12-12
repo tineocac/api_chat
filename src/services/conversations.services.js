@@ -1,4 +1,4 @@
-const { Users, Conversations, Messages } = require("../models");
+const { Users, Conversations, Messages, Participants } = require("../models");
 
 class conversationsServices {
   static async getConversations(id, offset, limit) {
@@ -65,6 +65,29 @@ class conversationsServices {
     try {
       const result = await Messages.create(data);
       return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async create(data) {
+    try {
+      const { title, createdBy, participants } = data;
+      const conversation = await Conversations.create({
+        title,
+        createdBy,
+      });
+      const conversationId = conversation.id;
+      const conversationParticipants = participants.map((userId) => {
+        return {
+          conversationId,
+          userId,
+        };
+      });
+
+      conversationParticipants.forEach(
+        async (participant) => await Participants.create(participant)
+      );
     } catch (error) {
       throw error;
     }
